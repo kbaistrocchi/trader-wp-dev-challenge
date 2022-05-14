@@ -7,5 +7,4 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?php bloginfo('title'); ?></title>
 </head>
-<!-- add a diff class name depending on which page we're on -->
 <body <?php body_class(); ?> > 
