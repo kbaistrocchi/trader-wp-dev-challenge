@@ -9,6 +9,7 @@
 </head>
 <body <?php body_class(); ?> > 
 <header>
+    <a href="<?php echo home_url(); ?>">Home</a>
     <nav><?php wp_nav_menu( array(
             'theme_location' => 'primary'
         )); ?>
