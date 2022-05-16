@@ -115,15 +115,17 @@ add_filter( 'the_content', 'et_al_content' );
 function et_al_content( $content ) {
     $post_id = get_the_ID();
     $additional_authors = ( get_post_meta($post_id, 'additional_authors', false));
-
-    $content .= '<div class="developer box"><p>Developers</p>';
-    foreach ($additional_authors[0] as $author ) {
-        $author_info = get_userdata( $author );
-        $content .= '<div><a href="' .  get_author_posts_url($author_info->ID) . '" target="_blank">' . get_avatar($author_info->ID) . '<p>' . $author_info->display_name . '</p></a></div>';
+    if ( count($additional_authors[0]) > 0 ) {
+        $content .= '<div class="developer-box"><p>Developers</p>';
+        foreach ($additional_authors[0] as $author ) {
+            $author_info = get_userdata( $author );
+            $content .= '<div><a href="' .  get_author_posts_url($author_info->ID) . '" target="_blank">' . get_avatar($author_info->ID) . '<p>' . $author_info->display_name . '</p></a></div>';
+        }
+        $content .= '</div>';
+        
+        return $content;
     }
-    $content .= '</div>';
     
-    return $content;
 }
 
 ?>
