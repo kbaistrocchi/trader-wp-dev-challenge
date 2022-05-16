@@ -1,0 +1,39 @@
+/*
+Theme Name: trader
+Author: Kayla
+Author URI: https://wordpress.org/
+Description: The most basic of basic custom themes
+Version: 1.0
+Text Domain: trader
+*/
+
+h1 {
+    text-transform: lowercase;
+}
+body.single {
+    padding: 2rem calc(50% - 30rem);
+}
+p {
+    color:#777;
+}
+.et-al-authors-box {
+    border: 1px solid #333;
+    padding: 0.5rem 2rem 1rem;
+    width: fit-content;
+    max-width: 100%;
+}
+.et-al-authors-box > p {
+   font-size: 1.3rem;
+}
+.et-al-developers {
+    display: flex;
+}
+.et-al-developers > div {
+    margin-right: 1rem;
+}
+.et-al-developers > div a {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
