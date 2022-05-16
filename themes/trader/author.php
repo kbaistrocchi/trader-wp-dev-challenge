@@ -23,4 +23,4 @@ if(have_posts() ) :
         <p>No posts found</p>
 <?php endif; ?>
 
-<?php get_footer(); ?>
+<?php get_footer();  ?>
