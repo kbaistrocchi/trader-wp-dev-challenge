@@ -7,7 +7,7 @@ if(have_posts() ) :
         the_post(); ?>
         <div>
             <h2>
-                <a href="<?php the_permalink( );?>">
+                <a href="<?php the_permalink();?>">
                     <?php the_title(); ?>
                 </a>
             </h2>
@@ -23,4 +23,4 @@ if(have_posts() ) :
         <p>No posts found</p>
 <?php endif; ?>
 
-<?php get_footer();  ?>
+<?php get_footer(); ?>

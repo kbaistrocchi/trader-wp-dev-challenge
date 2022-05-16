@@ -15,10 +15,12 @@ function trader_features()
     add_theme_support('post-thumbnails');
     add_theme_support('title-tag');
     // Add theme support, (title tag, featured img, nav menu)
-    register_nav_menus( array(
+    register_nav_menus(
+        array(
         'primary' => 'Primary Menu',
         'footer' => 'Footer Menu'
-    ));
+        )
+    );
 };
 // this function dynamically loads title and tag line and is better than the header version
 

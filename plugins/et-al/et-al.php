@@ -13,10 +13,14 @@ add_action('load-post-new.php', 'et_al_setup');
 /* Et Al meta box setup function */
 function et_al_setup()
 {
-    /** Add meta box using hook */
+    /**
+ * Add meta box using hook 
+*/
     add_action('add_meta_boxes_post', 'et_al_add_post_meta_boxes');
 
-    /** Save meta box input when post is saved */
+    /**
+ * Save meta box input when post is saved 
+*/
     add_action('save_post', 'et_al_save_input', 10, 2);
 }
 
@@ -45,18 +49,25 @@ function et_al_meta_box_output($post)
     <?php wp_nonce_field(basename(__FILE__), 'et_al_meta_box_nonce'); ?>
     <p>Choose any additional authors that contributed to this post.</p>
     <?php 
-        /** Get all users that have 'author' access only */
+        /**
+         * Get all users that have 'author' access only 
+         */
         $user_query = array(
             'role' => 'author',
             'orderby' => 'name'
         );
         $users = get_users($user_query); 
 
-        /** Get any additional authors already saved for this post */
-        $already_added = get_post_meta( $post->ID, 'additional_authors')[0];
-        /** Helper function to check if user has already been added to post */
-        function checkUser($userID, $array) {
-            if (in_array( $userID, $array)) {
+        /**
+ * Get any additional authors already saved for this post 
+*/
+        $already_added = get_post_meta($post->ID, 'additional_authors')[0];
+        /**
+         * Helper function to check if user has already been added to post 
+         */
+        function checkUser($userID, $array)
+        {
+            if (in_array($userID, $array)) {
                 return $userID;
             } else {
                 return 'not there';
@@ -67,7 +78,8 @@ function et_al_meta_box_output($post)
             <?php
             // display each author as a checkbox option
             foreach( $users as $user) {
-                /** Get user id if they've already been added to this post previously
+                /**
+ * Get user id if they've already been added to this post previously
                  * If they have, then their checkbox will be marked as checked
                  */
                 $existing = checkUser($user->ID, $already_added);
@@ -88,37 +100,49 @@ function et_al_meta_box_output($post)
 }
 
 
-/** Save input from meta box when post is saved */
-function et_al_save_input( $post ) {
+/**
+ * Save input from meta box when post is saved 
+ */
+function et_al_save_input( $post )
+{
     global $post;
 
-    /** Verify nonce */
-    if (!isset( $_POST['et_al_meta_box_nonce']) || !wp_verify_nonce(
+    /**
+ * Verify nonce 
+*/
+    if (!isset($_POST['et_al_meta_box_nonce']) || !wp_verify_nonce(
         $_POST['et_al_meta_box_nonce'], basename(__FILE__)
-    ))
-    return $post_id;
+    )
+    ) {
+        return $post_id;
+    }
 
-    /** Get the data (grabs checked boxes with the name="et-al-author") */
+    /**
+ * Get the data (grabs checked boxes with the name="et-al-author") 
+*/
     $new_meta_value = $_POST['et-al-author'];
 
     /* Get the meta key. */
     $meta_key = 'additional_authors';
 
     /* Updated meta data with checked box values */
-    update_post_meta( $post->ID, $meta_key, $new_meta_value );
+    update_post_meta($post->ID, $meta_key, $new_meta_value);
     
 }
 
-/** Add meta data to the post content */
-add_filter( 'the_content', 'et_al_content' );
+/**
+ * Add meta data to the post content 
+*/
+add_filter('the_content', 'et_al_content');
 
-function et_al_content( $content ) {
+function et_al_content( $content )
+{
     $post_id = get_the_ID();
     $additional_authors = ( get_post_meta($post_id, 'additional_authors', false));
-    if ( count($additional_authors[0]) > 0 ) {
+    if (count($additional_authors[0]) > 0 ) {
         $content .= '<div class="et-al-authors-box"><p>Developers</p><div class="et-al-developers">';
         foreach ($additional_authors[0] as $author ) {
-            $author_info = get_userdata( $author );
+            $author_info = get_userdata($author);
             $content .= '<div><a href="' .  get_author_posts_url($author_info->ID) . '" target="_blank">' . get_avatar($author_info->ID) . '<p>' . $author_info->display_name . '</p></a></div>';
         }
         $content .= '</div></div>';
