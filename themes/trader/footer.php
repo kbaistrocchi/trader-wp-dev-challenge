@@ -1,5 +1,5 @@
 
-<p>made is haste by Kayla</p>
+<p>developed in haste by Kayla</p>
 <?php
 wp_footer();
 ?>
